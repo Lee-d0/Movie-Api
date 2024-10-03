@@ -38,6 +38,23 @@ function App() {
       
   }
 
+  const handleFilter = (e) => {
+      e.preventDefault()
+
+    fetch(API_URL)
+    .then(res => res.json())
+    .then(data => setMovies(data.results.sort((a,b) => a.original_title.localeCompare(b.original_title))))
+  }
+
+  const handleFilterDate = (e) => {
+    e.preventDefault()
+    fetch(API_URL)
+    .then(res => res.json())
+    .then(data => setMovies(data.results.sort((a,b) => b.release_date.localeCompare(a.release_date))))
+
+
+  }
+
   return (
     <div className='App'>
       <div className="search_nav">
@@ -49,6 +66,9 @@ function App() {
               <input onChange={(e) => setSearch(e.target.value)}/>
               <button>Search</button>
             </form>
+            
+            <button onClick={handleFilter}>Filter A-Z</button>
+            <button onClick={handleFilterDate}>Filter Date</button>
           </div>
         
       </div>
